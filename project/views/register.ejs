@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>🍳 Join Recipe Haven</h1>
+      <p>Create an account to start sharing your recipes</p>
+    </div>
+
+    <% if (error) { %>
+      <div class="error-message">
+        <p>❌ <%= error %></p>
+      </div>
+    <% } %>
+
+    <form action="/register" method="POST" class="auth-form">
+      <div class="form-group">
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required placeholder="Choose a username">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="6" placeholder="Minimum 6 characters">
+      </div>
+
+      <div class="form-group">
+        <label for="role">Account Type</label>
+        <select id="role" name="role">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a href="/login">Sign in here</a></p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

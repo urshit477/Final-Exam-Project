@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar', { user: user }) %>
+
+<div class="container">
+  <div class="page-header">
+    <h1>🍴 Discover Amazing Recipes</h1>
+    <p>Explore delicious recipes shared by our community</p>
+  </div>
+
+  <div class="recipes-grid">
+    <% if (recipes.length === 0) { %>
+      <div class="no-recipes">
+        <p>No recipes found. Be the first to share one!</p>
+        <a href="/recipes/new" class="btn btn-primary">Create Recipe</a>
+      </div>
+    <% } else { %>
+      <% recipes.forEach(recipe => { %>
+        <div class="recipe-card">
+          <div class="recipe-header">
+            <h3><%= recipe.title %></h3>
+            <span class="recipe-category"><%= recipe.category %></span>
+          </div>
+          <p class="recipe-description"><%= recipe.description %></p>
+          <div class="recipe-meta">
+            <span class="meta-item">⏱️ <%= recipe.cookingTime %> mins</span>
+            <span class="meta-item">📊 <%= recipe.difficulty %></span>
+          </div>
+          <div class="recipe-author">
+            <span>👨‍🍳 By <%= recipe.author.username %></span>
+          </div>
+          <div class="recipe-actions">
+            <a href="/recipes/<%= recipe._id %>" class="btn btn-secondary">View Recipe</a>
+            <% if (user && (recipe.author._id.toString() === user._id.toString() || user.role === 'admin')) { %>
+              <a href="/recipes/<%= recipe._id %>/edit" class="btn btn-edit">Edit</a>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
